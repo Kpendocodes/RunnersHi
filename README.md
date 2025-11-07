@@ -1,6 +1,12 @@
 # RunnersHi
 A Fitness app that works smarter not harder.
 
+# Tech Stack:
+- **Frontend:**
+React Native
+- **Backend:** Node.js (Express)
+- **Database:** MySQL
+
 # Description
 RunnerTrack is a mobile app that allows runners to track their runs with simulation and analyze their performance—even after stopping. It integrates with Spotify, Tidal, and Apple Music, and awards runners with badges and rewards for milestones.
 
