@@ -3,16 +3,9 @@ const mysql = require('mysql2');
 const app = express();
 const PORT = 3000;
 
-// Middleware - CRUCIAL for parsing JSON
+// ⭐ MIDDLEWARE MUST BE HERE - BEFORE ROUTES
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// Enable CORS for React Native
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  next();
-});
 
 // MySQL connection
 const db = mysql.createConnection({
@@ -32,7 +25,7 @@ db.connect((err) => {
   }
 });
 
-// Pass db connection to routes
+// Routes - MUST COME AFTER MIDDLEWARE
 const routes = require('./routes')(db);
 app.use('/api', routes);
 
