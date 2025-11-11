@@ -131,6 +131,24 @@ module.exports = (db) => {
       res.json({ badges: results });
     });
   });
+  router.post('/badges/award', (req, res) => {
+  const { userId, badgeId } = req.body;
+  if (!userId || !badgeId) {
+    return res.status(400).json({ error: 'userId and badgeId required' });
+  }
+
+  const sql = 'INSERT INTO user_badges (user_id, badge_id, earned_at) VALUES (?, ?, NOW())';
+  db.query(sql, [userId, badgeId], (err) => {
+    if (err) {
+      if (err.code === 'ER_DUP_ENTRY') {
+        return res.status(409).json({ error: 'Badge already awarded to this user.' });
+      }
+      return res.status(500).json({ error: err.message });
+    }
+    res.status(201).json({ message: 'Badge awarded!' });
+  });
+});
+
   
   // ========== STATS ENDPOINTS ==========
   
